@@ -6,13 +6,19 @@ const diff = (lhs, rhs) => {
   if (!isObject(lhs) || !isObject(rhs)) return rhs; // return updated rhs
 
   if (lhs instanceof Array && rhs instanceof Array) {
-    return rhs.reduce((acc, curr, idx) => {
+    let isFind = false;
+    const result = rhs.map((curr, idx) => {
       const difference = diff(lhs[idx], curr);
 
-      if (isObject(difference) && isEmpty(difference) && !isDate(difference)) return acc;
+      if (isObject(difference) && isEmpty(difference) && !isDate(difference)) return undefined;
 
-      return [ ...acc, difference ];
-    }, []);
+      isFind = true;
+      return difference;
+    });
+
+    if (isFind) {
+      return result;
+    }
   }
 
   const l = properObject(lhs);

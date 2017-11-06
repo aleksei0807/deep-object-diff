@@ -46,31 +46,25 @@
     return target;
   };
 
-  function _toConsumableArray(arr) {
-    if (Array.isArray(arr)) {
-      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-        arr2[i] = arr[i];
-      }
-
-      return arr2;
-    } else {
-      return Array.from(arr);
-    }
-  }
-
   var diff = function diff(lhs, rhs) {
     if (lhs === rhs) return {}; // equal return no diff
 
     if (!(0, _utils.isObject)(lhs) || !(0, _utils.isObject)(rhs)) return rhs; // return updated rhs
 
     if (lhs instanceof Array && rhs instanceof Array) {
-      return rhs.reduce(function (acc, curr, idx) {
+      var isFind = false;
+      var result = rhs.map(function (curr, idx) {
         var difference = diff(lhs[idx], curr);
 
-        if ((0, _utils.isObject)(difference) && (0, _utils.isEmpty)(difference) && !(0, _utils.isDate)(difference)) return acc;
+        if ((0, _utils.isObject)(difference) && (0, _utils.isEmpty)(difference) && !(0, _utils.isDate)(difference)) return undefined;
 
-        return [].concat(_toConsumableArray(acc), [difference]);
-      }, []);
+        isFind = true;
+        return difference;
+      });
+
+      if (isFind) {
+        return result;
+      }
     }
 
     var l = (0, _utils.properObject)(lhs);
