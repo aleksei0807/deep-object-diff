@@ -64,7 +64,7 @@
     if (!(0, _utils.isObject)(lhs) || !(0, _utils.isObject)(rhs)) return rhs; // return updated rhs
 
     if (lhs instanceof Array && rhs instanceof Array) {
-      rhs.reduce(function (acc, curr, idx) {
+      return rhs.reduce(function (acc, curr, idx) {
         var difference = diff(lhs[idx], curr);
 
         if ((0, _utils.isObject)(difference) && (0, _utils.isEmpty)(difference) && !(0, _utils.isDate)(difference)) return acc;

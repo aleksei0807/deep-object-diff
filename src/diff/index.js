@@ -6,7 +6,7 @@ const diff = (lhs, rhs) => {
   if (!isObject(lhs) || !isObject(rhs)) return rhs; // return updated rhs
 
   if (lhs instanceof Array && rhs instanceof Array) {
-    rhs.reduce((acc, curr, idx) => {
+    return rhs.reduce((acc, curr, idx) => {
       const difference = diff(lhs[idx], curr);
 
       if (isObject(difference) && isEmpty(difference) && !isDate(difference)) return acc;
